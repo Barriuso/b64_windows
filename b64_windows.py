@@ -27,11 +27,13 @@ def load_file(filePath):
         exit()
 
 if __name__ == '__main__':
-
     if len(sys.argv) == 2:
-        output = "powershell -enc " + base64.b64encode(sys.argv[1].encode('utf16')[2:]).decode()
-        print (output)
-        exit()
+        if (sys.argv[1] != '-h' and sys.argv[1] != '-o' and sys.argv[1] != '--ouput' and sys.argv[1] != '--file' and sys.argv[1] != '--help'):
+            output = "powershell -enc " + base64.b64encode(sys.argv[1].encode('utf16')[2:]).decode()
+            print (output)
+            exit()
+        else:
+            args = get_args()
     else:
         args = get_args()
 
