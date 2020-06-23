@@ -14,15 +14,15 @@ def get_args():
 def load_file(filePath):
     try:
         with open(filePath, 'r') as file:
-            file_shellcode = file.read()
-            file_shellcode = file_shellcode.strip()
-            #print ("Fichero ",file_shellcode)
-            return file_shellcode
+            file = file.read()
+            file = file.strip()
+            #print ("Fichero ",file)
+            return file
     except:
         print((" [!] WARNING: path not found"))
         exit()
 
-    if len(file_shellcode) == 0:
+    if len(file) == 0:
         print(" [!] WARNING: File is empty", )
         exit()
 
