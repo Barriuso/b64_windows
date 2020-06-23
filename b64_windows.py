@@ -6,7 +6,7 @@ import argparse
 def get_args():
     parser = argparse.ArgumentParser(description='Convert file to base64 as Windows likes')
     parser.add_argument('-o', '--output', dest='output', type=str, required=False, help='Output File')
-    parser.add_argument('-f', '--file', dest='infile', type=str, required=False, help='Infile')
+    parser.add_argument('-f', '--file', dest='infile', type=str, required=False, help='File to convert')
     return parser.parse_args()
 
 def load_shellcode(filePath):
