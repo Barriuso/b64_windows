@@ -2,14 +2,15 @@
 import readline
 import base64
 import argparse
+import sys
 
 def get_args():
     parser = argparse.ArgumentParser(description='Convert file to base64 as Windows likes')
     parser.add_argument('-o', '--output', dest='output', type=str, required=False, help='Output File')
-    parser.add_argument('-f', '--file', dest='infile', type=str, required=False, help='File to convert')
+    parser.add_argument('-f', '--file', dest='file', type=str, required=False, help='File to convert')
     return parser.parse_args()
 
-def load_shellcode(filePath):
+def load_file(filePath):
     try:
         with open(filePath, 'r') as file:
             file_shellcode = file.read()
@@ -18,28 +19,36 @@ def load_shellcode(filePath):
             return file_shellcode
     except:
         print((" [!] WARNING: path not found"))
-        return None
+        exit()
 
     if len(file_shellcode) == 0:
         print(" [!] WARNING: File is empty", )
-        return None
+        exit()
 
 if __name__ == '__main__':
-    args = get_args()
-    if (args.infile == None):
+
+    if len(sys.argv) == 2:
+        output = "powershell -enc " + base64.b64encode(sys.argv[1].encode('utf16')[2:]).decode()
+        print (output)
+        exit()
+    else:
+        args = get_args()
+
+    if (args.file == None):
         readline.set_completer_delims(' \t\n=')
         readline.parse_and_bind("tab: complete")
         filePath = input("Tab complete a file: ")
-        payload = load_shellcode(filePath)
+        payload = load_file(filePath)
     else:
-        load_shellcode(args.infile)
+        payload = load_file(args.file)
 
-    output = "powershell -enc " + base64.b64encode(payload.encode('utf16')[2:]).decode()
     if (args.output == None):
+        output = "powershell -enc " + base64.b64encode(payload.encode('utf16')[2:]).decode()
         print (output)
     else:
+        output = "powershell -enc " + base64.b64encode(payload.encode('utf16')[2:]).decode()
         try:
-            with open(args.ouput, 'a') as file:
+            with open(args.output, 'w') as file:
                 file.write(output)
 
         except:
