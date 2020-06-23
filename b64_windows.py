@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 #Convertir archivos a base64 con el formato de windows
 import readline
 import base64
