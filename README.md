@@ -1,6 +1,6 @@
 # Base64 as Windows
 
-Encoded file as Windows likes. This is designed to encode code or command and then be executed.
+Encoded file as Windows likes Base64(UTF-16LE). This is designed to encode code or command and then be executed.
 ````
 $ python b64_windows.py whoami
 powershell -enc dwBoAG8AYQBtAGkA
